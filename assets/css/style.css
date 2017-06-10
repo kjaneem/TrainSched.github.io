@@ -1,0 +1,22 @@
+.jumbotron {
+    color: white;
+    background-color: black;
+    text-align: center;
+}
+
+.panel-heading {
+    background-color: blue!important;
+    text-decoration: bold!important;
+    color: white!important;
+}
+
+.submitButton {
+    background-color: blue!important;
+    color: white;
+}
+
+.hdrRowP {
+    text-align: left!important;
+    font-weight: bold;
+}
+
