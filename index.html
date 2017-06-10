@@ -61,6 +61,7 @@
   </div> <!-- end row -->
 </div> <!-- end container-fluid class -->
 </div> <!-- end curTrainSchedTableHolder -->
+</div> <!-- end panel -->
 
 <!-- ======================= Add Train Form =================================-->
 <div class="panel">
@@ -68,7 +69,51 @@
   <div class="panel-heading"><strong>Add Train</strong></div>
   <div class="panel-body" id=addTrainTextboxHolder>
 
-<table id=inputTableTextboxes>
+<!-- changes begin -->
+
+<div class="container-fluid bg-3 text-center">    
+  <div class="row">
+
+    <div class="col-sm-12" id=trainTxtBoxHdr>
+    <p class="detailRowP" id=trainTxtHdr>Train Name</p>      
+    </div>
+    <div class="col-sm-12" id=trainTxtBox>
+    <input class="inputTextBox" type="text" id="inputTrainName">   
+    </div>
+
+    <div class="col-sm-12" id=destinationTxtBoxHdr>
+    <p class="detailRowP" id=destinationTxtHdr>Destination</p>      
+    </div>
+    <div class="col-sm-12" id=destinationTxtBox>
+    <input class="inputTextBox" type="text" id="inputDestination">   
+    </div>
+
+    <div class="col-sm-12" id=timeTxtBoxHdr>
+    <p class="detailRowP" id=timeTxtHdr>First Train Time (military time)</p>      
+    </div>
+    <div class="col-sm-12" id=timeTxtBox>
+    <input class="inputTextBox" type="text" id="inputTime">   
+    </div>
+
+    <div class="col-sm-12" id=freqTxtBoxHdr>
+    <p class="detailRowP" id=freqTxtHdr>Frequency (mins)</p>      
+    </div>
+    <div class="col-sm-12" id=freqTxtBox>
+    <input class="inputTextBox" type="text" id="freqTrainName">   
+    </div>
+ 
+  </div> <!-- end row -->
+</div> <!-- end container-fluid class -->
+</div> <!-- end addTrainTextboxHolder -->
+</div> <!-- end panel -->
+
+<!-- changes end -->
+
+
+
+
+
+<!--table id=inputTableTextboxes>
   <tr>
     <p>Train Name</p>
   </tr>
@@ -93,7 +138,7 @@
   <tr>
     <td><input type="text" id="inputFreq"></td>
   </tr>
-</table>
+</table-->
 
   <button class="submitButton">Submit</button>
 </div>
