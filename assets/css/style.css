@@ -25,7 +25,6 @@
 }
 
 .inputTextBox {
-    align: left;
-    size: 340;
+    width: 100%;
 }
 

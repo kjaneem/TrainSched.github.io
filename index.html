@@ -41,26 +41,24 @@
   <div class="panel-heading"><strong>Current Train Schedule</strong></div>
   <div class="panel-body" id=curTrainSchedTableHolder>
 
-<div class="container-fluid bg-3 text-center">    
-  <div class="row">
-    <div class="col-sm-3" id=trainHdrBox>
-    <p class="hdrRowP" id=trainHdr>Train</p>      
-    </div>
-    <div class="col-sm-3" id=destinationHdrBox>
-    <p class="hdrRowP" id=destinationHdr>Destination</p>      
-    </div>
-    <div class="col-sm-2" id=frequencyHdrBox>
-    <p class="hdrRowP" id=frequencyHdr>Frequency</p>      
-    </div>
-    <div class="col-sm-2" id=nextArrivalHdrBox>
-    <p class="hdrRowP" id=nextArrivalHdr>Next Arrival</p>      
-    </div>
-    <div class="col-sm-2" id=minsAwayHdrBox>
-    <p class="hdrRowP" id=minsAwayHdr>Minutes Away</p>      
-    </div>
-  </div> <!-- end row -->
-</div> <!-- end container-fluid class -->
+            <div class="panel-body">
+              <table class="table table-hover" id='curTrainSchedTable'>
+                <thead>
+                  <tr>
+                    <th>Train Name</th>
+                    <th>Destination</th>
+                    <th>Frequency (min)</th>
+                    <th>Next Arrival</th>
+                    <th>Minutes Away</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+
 </div> <!-- end curTrainSchedTableHolder -->
+</div> <!-- end panel heading -->
 </div> <!-- end panel -->
 
 <!-- ======================= Add Train Form =================================-->
@@ -68,8 +66,6 @@
   <!-- Default panel contents -->
   <div class="panel-heading"><strong>Add Train</strong></div>
   <div class="panel-body" id=addTrainTextboxHolder>
-
-<!-- changes begin -->
 
 <div class="container-fluid bg-3 text-center">    
   <div class="row">
@@ -99,7 +95,7 @@
     <p class="detailRowP" id=freqTxtHdr>Frequency (mins)</p>      
     </div>
     <div class="col-sm-12" id=freqTxtBox>
-    <input class="inputTextBox" type="text" id="freqTrainName">   
+    <input class="inputTextBox" type="text" id="inputFreq">   
     </div>
  
   </div> <!-- end row -->
@@ -107,73 +103,70 @@
 </div> <!-- end addTrainTextboxHolder -->
 </div> <!-- end panel -->
 
-<!-- changes end -->
-
-
-
-
-
-<!--table id=inputTableTextboxes>
-  <tr>
-    <p>Train Name</p>
-  </tr>
-  <tr>
-    <td><input type="text" id="inputTrainName"></td>
-  </tr>
-  <tr>
-    <p>Destination</p>
-  </tr>
-  <tr>
-    <td><input type="text" id="inputDestination"></td>
-  </tr>
-  <tr>
-    <p>First Train Time (HH:mm military time)</p>
-  </tr>
-  <tr>
-    <td><input type="text" id="inputTime"></td>
-  </tr>
-  <tr>
-    <p>Frequency (min)</p>
-  </tr>
-  <tr>
-    <td><input type="text" id="inputFreq"></td>
-  </tr>
-</table-->
-
   <button class="submitButton">Submit</button>
 </div>
 
 </div> <!-- end page container -->
 <!-- ====================================END PAGE=======================================-->
 
-<!-- WORKING HERE END -->
+<!--script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script-->
+<script>
+  // Initialize Firebase - TrainSched project
+  var config = {
+    apiKey: "AIzaSyD2aqkGUrfRLrbQP7eoOk7Qy1pz_DN4i8U",
+    authDomain: "trainsched-dc11f.firebaseapp.com",
+    databaseURL: "https://trainsched-dc11f.firebaseio.com",
+    projectId: "trainsched-dc11f",
+    storageBucket: "trainsched-dc11f.appspot.com",
+    messagingSenderId: "281500963387"
+  };
+  firebase.initializeApp(config);
+</script>
 
   <script>
+
+    //Get reference to the database service
+    var database = firebase.database();
+
     //var randomDate = "02/23/1999";
 
     //TEXTBOX INPUT
     //var inputTime = "1932";
-    var inputName = "Springview Special";
-    var inputDestination = "Winter Park";
-    var inputFreq = "30";
-    var inputTime = "0932";
+    // var inputName = "Springview Special";
+    // var inputDestination = "Winter Park";
+    // var inputFreq = "30";
+    // var inputTime = "0932";
+
+    var inputTrainName;
+    var inputDestination;
+    var inputFreq;
+    var inputTime;
 
     //Calculated elements
     var nextArrivalTime;
     var minutesAway;
-
-    //Firebase DB initialization
-
-    //Accept input from textboxes
-      //Get train input from textboxes
-
-    //Convert inputTime from military time to EST
-    var inputEST = convertToEST(inputTime);
-        console.log("inputEST: " + inputEST);
-    
-    //On button click
+ 
+    //On Submit button click
     // WORKING HERE ===========
-    $("#submitButton").on("click", function() {
+    $(".submitButton").on("click", function(event) {
+      event.preventDefault();
+
+        //Accept input from textboxes
+        inputTrainName = $("#inputTrainName").val().trim();
+            console.log("inputTrainName = " + inputTrainName);
+        
+        inputDestination = $("#inputDestination").val().trim();
+            console.log("inputDestination = " + inputDestination);
+
+        inputTime = $("#inputTime").val().trim();
+            console.log("inputTime = " + inputTime);
+        
+        inputFreq = $("#inputFreq").val().trim();
+            console.log("inputFreq" + inputFreq);
+
+        //Convert inputTime from military time to EST
+        var inputEST = convertToEST(inputTime);
+        console.log("inputEST: " + inputEST);
 
         //Calculate nextArrivalTime
         nextArrivalTime = moment(inputEST).add(inputFreq, 'm');
@@ -185,16 +178,64 @@
 
         minutesAway = moment(nextArrivalTime).diff(valueOfMoment, 'm');
             console.log("minutesAway: " + minutesAway);
-    
-        //Write train info into Fireebase DB?
-        //Dynamically attach train data for display
-        $("#trainName").text(inputName);
-        $("#destination").text(inputDestination);
-        $("#frequency").text(inputFreq);
-        $("#nextArrival").text(nextArrivalTime);
-        $("#minutesAway").text(minutesAway);
 
-    }); //end button click
+        //Create temp object for holding train data
+        var newSched = {
+          tmpTrainName:    inputTrainName,
+          tmpDestination:  inputDestination,
+          tmpFrequency:    inputFreq,
+          tmpNextArrival:  nextArrivalTime,
+          tmpMinutesAway:  minutesAway
+        }
+
+        //Uploads train data to the database
+        datbase.ref().push(newSched);
+
+        //Logs everything to console
+        console.log(newSched.tmpTrainName);
+        console.log(newSched.tmpDestination);
+        console.log(newSched.tmpFrequency);
+        console.log(newSched.tmpNextArrival);
+        console.log(newSched.tmpMinutesAway);
+
+        //Clears all of the textboxes
+        $("#inputTrainName").val("");
+        $("#inputDestination").val("");
+        $("#inputTime").val("");
+        $("#inputFreq").val("");
+
+        });
+
+    // Firebase watcher + initial loader HINT: .on("value")
+    //database.ref().on("child_added", function(snapshot) {
+database.ref().on("child_added"), function(childSnapshot, prevChildKey) {
+
+  console.log(childSnapshot.val());
+
+      // Log everything that's coming out of snapshot
+      // console.log(snapshot.val());
+      // console.log(snapshot.val().dbTrainName);
+      // console.log(snapshot.val().dbDestination);
+      // console.log(snapshot.val().dbNextArrival);
+      // console.log(snapshot.val().dbMinutesAway);
+
+      var inputTrainNamee = childShapshot.val().tmpTrainName;
+      var inputDestination = childSnapshot.val().tmpDestination;
+      var inputFreq = childSnapshot.val().tmpFrequency;
+      var inputNextArrival = childSnapshot.val().tmpNextArrival;
+      var inputMinutesAway = childSnapshot.val().tmpMinutesAway;
+
+      // Train Info
+      console.log(inputTrainName);
+      console.log(inputDestination);
+      console.log(inputFreq);
+      console.log(inputNextArrival);
+      console.log(inputMinutesAway);
+      
+  // Add each train's data into the table
+  $("#curTrainSechedtable > tbody").append("<tr><td>" + inputTrainName + "</td><td>" + inputDestination + "</td><td>" +
+  inputFreq + "</td><td>" + inputNextArrival + "</td><td>" + inputMinutesAway + "</td></tr>");
+  });
 
     //WORKING HERE END=============
  
