@@ -36,10 +36,10 @@
     </div>
 
 <!-- ======================= Current Train Schedule =================================-->
-<div class="panel">
-  <!-- Default panel contents -->
-  <div class="panel-heading"><strong>Current Train Schedule</strong></div>
-  <div class="panel-body" id=curTrainSchedTableHolder>
+    <div class="panel">
+      <!-- Default panel contents -->
+      <div class="panel-heading"><strong>Current Train Schedule</strong></div>
+      <div class="panel-body" id=curTrainSchedTableHolder>
 
             <div class="panel-body">
               <table class="table table-hover" id='curTrainSchedTable'>
@@ -57,59 +57,56 @@
               </table>
             </div>
 
-</div> <!-- end curTrainSchedTableHolder -->
-</div> <!-- end panel heading -->
-</div> <!-- end panel -->
+    </div> <!-- end curTrainSchedTableHolder -->
+    </div> <!-- end panel -->
 
 <!-- ======================= Add Train Form =================================-->
-<div class="panel">
-  <!-- Default panel contents -->
-  <div class="panel-heading"><strong>Add Train</strong></div>
-  <div class="panel-body" id=addTrainTextboxHolder>
+    <div class="panel">
+      <!-- Default panel contents -->
+      <div class="panel-heading"><strong>Add Train</strong></div>
+      <div class="panel-body" id=addTrainTextboxHolder>
 
-<div class="container-fluid bg-3 text-center">    
-  <div class="row">
+          <div class="container-fluid bg-3 text-center">    
+              <div class="row">
 
-    <div class="col-sm-12" id=trainTxtBoxHdr>
-    <p class="detailRowP" id=trainTxtHdr>Train Name</p>      
-    </div>
-    <div class="col-sm-12" id=trainTxtBox>
-    <input class="inputTextBox" type="text" id="inputTrainName">   
-    </div>
+                  <div class="col-sm-12" id=trainTxtBoxHdr>
+                  <p class="detailRowP" id=trainTxtHdr>Train Name</p>      
+                  </div>
+                  <div class="col-sm-12" id=trainTxtBox>
+                  <input class="inputTextBox" type="text" id="inputTrainName">   
+                  </div>
 
-    <div class="col-sm-12" id=destinationTxtBoxHdr>
-    <p class="detailRowP" id=destinationTxtHdr>Destination</p>      
-    </div>
-    <div class="col-sm-12" id=destinationTxtBox>
-    <input class="inputTextBox" type="text" id="inputDestination">   
-    </div>
+                  <div class="col-sm-12" id=destinationTxtBoxHdr>
+                  <p class="detailRowP" id=destinationTxtHdr>Destination</p>      
+                  </div>
+                  <div class="col-sm-12" id=destinationTxtBox>
+                  <input class="inputTextBox" type="text" id="inputDestination">   
+                  </div>
 
-    <div class="col-sm-12" id=timeTxtBoxHdr>
-    <p class="detailRowP" id=timeTxtHdr>First Train Time (military time)</p>      
-    </div>
-    <div class="col-sm-12" id=timeTxtBox>
-    <input class="inputTextBox" type="text" id="inputTime">   
-    </div>
+                  <div class="col-sm-12" id=timeTxtBoxHdr>
+                  <p class="detailRowP" id=timeTxtHdr>First Train Time (military time)</p>      
+                  </div>
+                  <div class="col-sm-12" id=timeTxtBox>
+                  <input class="inputTextBox" type="text" id="inputTime">   
+                  </div>
 
-    <div class="col-sm-12" id=freqTxtBoxHdr>
-    <p class="detailRowP" id=freqTxtHdr>Frequency (mins)</p>      
-    </div>
-    <div class="col-sm-12" id=freqTxtBox>
-    <input class="inputTextBox" type="text" id="inputFreq">   
-    </div>
+                  <div class="col-sm-12" id=freqTxtBoxHdr>
+                  <p class="detailRowP" id=freqTxtHdr>Frequency (mins)</p>      
+                  </div>
+                  <div class="col-sm-12" id=freqTxtBox>
+                  <input class="inputTextBox" type="text" id="inputFreq">   
+                  </div>
  
-  </div> <!-- end row -->
-</div> <!-- end container-fluid class -->
-</div> <!-- end addTrainTextboxHolder -->
-</div> <!-- end panel -->
+              </div> <!-- end row -->
+          </div> <!-- end container-fluid class -->
+        </div> <!-- end addTrainTextboxHolder -->
+      </div> <!-- end panel -->
 
-  <button class="submitButton">Submit</button>
-</div>
+      <button class="submitButton">Submit</button>
 
 </div> <!-- end page container -->
 <!-- ====================================END PAGE=======================================-->
 
-<!--script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script-->
 <script>
   // Initialize Firebase - TrainSched project
   var config = {
@@ -120,22 +117,11 @@
     storageBucket: "trainsched-dc11f.appspot.com",
     messagingSenderId: "281500963387"
   };
-  firebase.initializeApp(config);
-</script>
 
-  <script>
+  firebase.initializeApp(config);
 
     //Get reference to the database service
     var database = firebase.database();
-
-    //var randomDate = "02/23/1999";
-
-    //TEXTBOX INPUT
-    //var inputTime = "1932";
-    // var inputName = "Springview Special";
-    // var inputDestination = "Winter Park";
-    // var inputFreq = "30";
-    // var inputTime = "0932";
 
     var inputTrainName;
     var inputDestination;
@@ -186,7 +172,7 @@
           tmpFrequency:    inputFreq,
           tmpNextArrival:  nextArrivalTime,
           tmpMinutesAway:  minutesAway
-        }
+        };
 
         //Uploads train data to the database
         datbase.ref().push(newSched);
@@ -204,19 +190,19 @@
         $("#inputTime").val("");
         $("#inputFreq").val("");
 
-        });
+      });
 
-    // Firebase watcher + initial loader HINT: .on("value")
-    //database.ref().on("child_added", function(snapshot) {
-database.ref().on("child_added"), function(childSnapshot, prevChildKey) {
+// Firebase watcher 
+database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+
 
   console.log(childSnapshot.val());
 
-      var inputTrainNamee = childShapshot.val().tmpTrainName;
-      var inputDestination = childSnapshot.val().tmpDestination;
-      var inputFreq = childSnapshot.val().tmpFrequency;
-      var inputNextArrival = childSnapshot.val().tmpNextArrival;
-      var inputMinutesAway = childSnapshot.val().tmpMinutesAway;
+      var inputTrainNamee   = childShapshot.val().tmpTrainName;
+      var inputDestination  = childSnapshot.val().tmpDestination;
+      var inputFreq         = childSnapshot.val().tmpFrequency;
+      var inputNextArrival  = childSnapshot.val().tmpNextArrival;
+      var inputMinutesAway  = childSnapshot.val().tmpMinutesAway;
 
       // Train Info
       console.log(inputTrainName);
@@ -226,14 +212,16 @@ database.ref().on("child_added"), function(childSnapshot, prevChildKey) {
       console.log(inputMinutesAway);
       
   // Add each train's data into the table
-  $("#curTrainSechedtable > tbody").append("<tr>" +
+  $("#curTrainSechedTable > tbody").append("<tr>" +
                                           "<td>"  + inputTrainName   + "</td>" +
                                           "<td>"  + inputDestination + "</td>" +
                                           "<td>"  + inputFreq        + "</td>" +
                                           "<td>"  + inputNextArrival + "</td>" +
                                           "<td>" + inputMinutesAway  + "</td>" +
                                           "</tr>");
-  });
+});
+
+
 
     //WORKING HERE END=============
  
@@ -243,7 +231,7 @@ database.ref().on("child_added"), function(childSnapshot, prevChildKey) {
 
     }
   
-  </script>
+</script>
 
 </body>
 
