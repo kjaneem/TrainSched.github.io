@@ -212,13 +212,6 @@ database.ref().on("child_added"), function(childSnapshot, prevChildKey) {
 
   console.log(childSnapshot.val());
 
-      // Log everything that's coming out of snapshot
-      // console.log(snapshot.val());
-      // console.log(snapshot.val().dbTrainName);
-      // console.log(snapshot.val().dbDestination);
-      // console.log(snapshot.val().dbNextArrival);
-      // console.log(snapshot.val().dbMinutesAway);
-
       var inputTrainNamee = childShapshot.val().tmpTrainName;
       var inputDestination = childSnapshot.val().tmpDestination;
       var inputFreq = childSnapshot.val().tmpFrequency;
@@ -233,8 +226,13 @@ database.ref().on("child_added"), function(childSnapshot, prevChildKey) {
       console.log(inputMinutesAway);
       
   // Add each train's data into the table
-  $("#curTrainSechedtable > tbody").append("<tr><td>" + inputTrainName + "</td><td>" + inputDestination + "</td><td>" +
-  inputFreq + "</td><td>" + inputNextArrival + "</td><td>" + inputMinutesAway + "</td></tr>");
+  $("#curTrainSechedtable > tbody").append("<tr>" +
+                                          "<td>"  + inputTrainName   + "</td>" +
+                                          "<td>"  + inputDestination + "</td>" +
+                                          "<td>"  + inputFreq        + "</td>" +
+                                          "<td>"  + inputNextArrival + "</td>" +
+                                          "<td>" + inputMinutesAway  + "</td>" +
+                                          "</tr>");
   });
 
     //WORKING HERE END=============
